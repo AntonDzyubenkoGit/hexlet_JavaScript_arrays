@@ -1,14 +1,18 @@
-// Функция getWeekends()
-const getWeekends = (param = "long") => {
-  const arrLong = ["saturday", "sunday"];
-  const arrShort = ["sat", "sun"];
+// push() добавляет элемент в конец массива
+// unshift() добавляет элемент в начало массива
+//  delete arr[index] удаляет элемент из массива
 
-  if (param === "long") {
-    return arrLong;
+// Функция swap(), которая меняет местами первый и последний элемент массива
+
+const swap = (arr) => {
+  const keeper = arr[0];
+  if (arr.length < 2) {
+    return arr;
   }
-  return arrShort;
+  arr[0] = arr[arr.length - 1];
+  arr[arr.length - 1] = keeper;
+  return arr;
 };
 
-console.log(getWeekends());
-console.log(getWeekends("long"));
-console.log(getWeekends("short"));
+const array = [1, 2];
+console.log(swap(array));
