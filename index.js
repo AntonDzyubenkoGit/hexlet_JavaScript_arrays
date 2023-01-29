@@ -1,18 +1,12 @@
-// push() добавляет элемент в конец массива
-// unshift() добавляет элемент в начало массива
-//  delete arr[index] удаляет элемент из массива
+// Функция get(), которая извлекает из массива элемент по указанному индексу, если индекс существует, либо возвращает значение по умолчанию
 
-// Функция swap(), которая меняет местами первый и последний элемент массива
-
-const swap = (arr) => {
-  const keeper = arr[0];
-  if (arr.length < 2) {
-    return arr;
+const get = (arr, index, param = null) => {
+  if (index < arr.length && index >= 0) {
+    return arr[index];
+  } else {
+    return param;
   }
-  arr[0] = arr[arr.length - 1];
-  arr[arr.length - 1] = keeper;
-  return arr;
 };
 
-const array = [1, 2];
-console.log(swap(array));
+const cities = ["moscow", "london", "berlin", "porto"];
+console.log(get(cities, 0));
