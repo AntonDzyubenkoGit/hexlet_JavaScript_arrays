@@ -1,12 +1,14 @@
-// Функция get(), которая извлекает из массива элемент по указанному индексу, если индекс существует, либо возвращает значение по умолчанию
+// Функция addPrefix()
 
-const get = (arr, index, param = null) => {
-  if (index < arr.length && index >= 0) {
-    return arr[index];
-  } else {
-    return param;
+const addPrefix = (arr, prefix) => {
+  const result = [];
+  for (let i = 0; i < arr.length; i++) {
+    result[i] = `${prefix} ${arr[i]}`;
   }
+  return result;
 };
 
-const cities = ["moscow", "london", "berlin", "porto"];
-console.log(get(cities, 0));
+const names = ["john", "smith", "karl"];
+
+console.log(addPrefix(names, "Mr"));
+
