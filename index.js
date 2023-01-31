@@ -1,18 +1,26 @@
-const temperatures = [];
-const temperatures1 = [37.5, 34, 39.3, 40, 38.7, 41.5];
-const temperatures2 = [36, 37.4, 39, 41, 36.6];
+const first = [];
+const second = [1, 2, 3];
+const third = [1, 2, 8];
+const fourth = [2, 2, 8];
+const fifth = [1, 2, -3];
+const sixth = [-3, 2, 1];
 
-// Функция calculateAverage(), которая высчитывает среднее арифметическое элементов переданного массива.
+// Функция getSameParity(),
+const getSameParity = (coll) => {
+  const result = [];
 
-const calculateAverage = (coll) => {
-  if (coll.length === 0) {
-    return null;
+  for (const item of coll) {
+    if (Math.abs(coll[0]) % 2 === 0) {
+      if (item % 2 === 0) {
+        result.push(item);
+      }
+    } else {
+      if (item % 2 !== 0) {
+        result.push(item);
+      }
+    }
   }
-  sumMiddle = 0;
-  for (const value of coll) {
-    sumMiddle += value;
-  }
-  return sumMiddle / coll.length;
+  return result;
 };
 
-console.log(calculateAverage(sumMass));
+console.log(getSameParity(sixth));
