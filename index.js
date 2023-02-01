@@ -1,29 +1,47 @@
-// Функция getSuperSeriesWinner(), которая находит команду победителя для конкретной суперсерии
-
-const scores = [
-  [3, 3],
-  [4, 1],
-  [5, 8],
-  [5, 5],
-  [2, 3],
-  [2, 5],
-  [4, 4],
-  [2, 3],
+// Функция buildDefinitionList(), которая генерирует HTML список определений (теги <dl>, <dt> и <dd>) и возвращает получившуюся строку
+const definitions = [
+  ["Блямба", "Выпуклость, утолщения на поверхности чего-либо"],
+  ["Бобр", "Животное из отряда грызунов"],
 ];
 
-const getSuperSeriesWinner = (series) => {
-  let sum = 0;
-  for (const game of series) {
-    const result = Math.sign(game[0] - game[1]);
-    sum += result;
+const buildDefinitionList = (coll) => {
+  if(coll.length === 0) {
+    return '';
   }
-  if (sum === 0) {
-    return null;
+  const parts = [];
+  for (const item of coll) {
+    parts.push(`<dt>${item[0]}</dt><dd>${item[1]}</dd>`);
   }
-  if (sum > 0) {
-    return "canada";
-  }
-  return "ussr";
+  const innerValue = parts.join("");
+  const result = `<dl>${innerValue}</dl>`;
+  return result;
 };
 
-console.log(getSuperSeriesWinner(scores));
+console.log(buildDefinitionList([]));
+
+
+
+
+
+// Функция buildHTMLList(), которая возвращает HTML-список (ul)
+const coll = ["milk", "butter", "bread", "onion", "carrot"];
+
+const buildHTMLListFirst = (coll) => {
+  let result = "<ul>";
+  for (const item of coll) {
+    result = `${result}<li>${item}</li>`;
+  }
+  result = `${result}</ul>`;
+
+  return result;
+};
+
+const buildHTMLListSecond = (coll) => {
+  const parts = [];
+  for (const item of coll) {
+    parts.push(`<li>${item}</li>`);
+  }
+  const innerValue = parts.join("");
+  const result = `<ul>${innerValue}</ul>`;
+  return result;
+};
