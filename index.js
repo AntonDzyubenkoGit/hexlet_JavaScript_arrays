@@ -1,56 +1,59 @@
-var _ = require("lodash");
+const test = [3, 2, 10, -2, 0, 15, 11, -17, -8, 8, 16, 105];
 
-const friends1 = ["vasya", "kolya", "petya"];
-const friends2 = ["igor", "petya", "sergey", "vasya", "sasha"];
-const text1 = "yyab";
-const text2 = "You know nothing Jon Snow and don't tell me more your lies";
+// Функция bubbleSort()
+const bubbleSort = (coll) => {
+  let stepsCount = coll.length - 1;
+  let swapped;
 
-const test1 = _.intersection(friends1, friends2); // пересечение
-const test2 = _.union(friends1, friends2); // объединение
-const test3 = _.difference(friends1, friends2); // разность
+  do {
+    swapped = false;
 
-// Функция countUniqChars(), которая получает на вход строку и считает, сколько символов (без учёта повторяющихся символов) использовано в этой строке
-const countUniqChars = (string) => {
-  if (string.length === 0) {
-    return 0;
-  }
+    for (let i = 0; i < stepsCount; i += 1) {
+      if (coll[i] > coll[i + 1]) {
+        const temp = coll[i];
+        coll[i] = coll[i + 1];
+        coll[i + 1] = temp;
 
-  const charsArray = [];
-
-  for (let i = 0; i < string.length; i++) {
-    if (charsArray.includes(string[i]) === false) {
-      charsArray.push(string[i]);
+        swapped = true;
+      }
     }
-  }
-  return charsArray.length;
+    stepsCount -= 1;
+  } while (swapped);
+
+  return coll;
 };
 
-// Функция countUniqChars(). Вариант с _.uniq()
-const countUniqCharsByUniq = (string) => {
-  if (string.length === 0) {
-    return 0;
-  }
-  const charsArray = _.uniq(string);
-  return charsArray.length;
+//console.log(bubbleSort(test));
+
+// Сщртировка встроенной функцией JS sort()
+const compareFunction = (a, b) => {
+  return a - b;
 };
 
-// Функция countUniqChars(). Вариант с _.union()
-const countUniqCharsByUnion = (str) => {
-  if (string.length === 0) {
-    return 0;
-  }
-  
-  const res = [];
+//console.log(test.sort(compareFunction));
 
-  for (const char of str) {
-    res.push(char);
-  }
+// Функция bubbleSort(), мой вариант
 
-  const result = _.union(res, []);
+const bubbleSortMyOwn = (coll) => {
+  let collLength = coll.length - 1;
+  let switcher;
 
-  return result.length;
+  do {
+    switcher = false;
+
+    for (let i = 0; i < collLength; i++) {
+      if (coll[i] > coll[i + 1]) {
+        let temp = coll[i];
+        coll[i] = coll[i + 1];
+        coll[i + 1] = temp;
+
+        switcher = true;
+      }
+    }
+    collLength -= 1;
+  } while (switcher);
+
+  return coll;
 };
 
-console.log(countUniqChars(text2));
-console.log(countUniqCharsByUniq(text2));
-console.log(countUniqCharsByUnion(text2));
+console.log(bubbleSortMyOwn(test));
