@@ -1,37 +1,36 @@
-const text = "hello the world and all the other planet in our galaxy";
-const sentence = "When you play the game of thrones, you win or you die";
+var _ = require("lodash");
 
-// Функция capitalizeWords(), которая делает заглавной каждую первую букву слова в строке
-const capitalize = (string) => {
-  return `${string[0].toUpperCase()}${string.slice(1)}`;
-};
-
-const capitalizeWords = (sentence) => {
-  const separator = " ";
-  const words = sentence.split(separator);
-  const capitalizeWords = [];
-
-  for (const word of words) {
-    capitalizeWords.push(capitalize(word));
-  }
-
-  return capitalizeWords.join(separator);
-};
-
-console.log(capitalizeWords(text));
-
-// Функция makeCensored(), которая заменяет каждое вхождение указанных слов в предложении на последовательность $#%! и возвращает полученную строку.
-
-const makeCensored = (string, stopWords) => {
-  const separator = " ";
-  const words = string.split(separator);
+// Функция getSameCount(), которая принимает на вход два массива и возвращающую количество общих уникальных значений в обоих массивах.
+const getSameCount = (collOne, collTwo) => {
   const result = [];
+  const uniqOne = _.uniq(collOne);
+  const uniqTwo = _.uniq(collTwo);
 
-  for (const word of words) {
-    stopWords.includes(word) ? result.push("$#%!") : result.push(word);
+  for (const uniqSymbol of uniqOne) {
+    if (uniqTwo.includes(uniqSymbol)) {
+      result.push(uniqSymbol);
+    }
   }
 
-  return result.join(separator);
+  return result.length;
 };
 
-console.log(makeCensored(sentence, ["die", "play"]));
+// Функция getSameCount(). Вариант с циклами
+
+const getSameCount_ = (collOne, collTwo) => {
+  let count = 0;
+  const uniqCollOne = _.uniq(collOne);
+  const uniqCollTwo = _.uniq(collTwo);
+
+  for (const itemOne of uniqCollOne) {
+    for (const itemTwo of uniqCollTwo) {
+      if (itemOne === itemTwo) {
+        count += 1;
+        break;
+      }
+    }
+  }
+  return count;
+};
+
+console.log(getSameCount_([1, 3, 2, 2, 3, 1, 2, 3, 2, 1, 3], [3, 1, 1, 2, 5])); // 1, 2, 3 = 3
