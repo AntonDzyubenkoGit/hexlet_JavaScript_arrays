@@ -1,59 +1,65 @@
-const test = [3, 2, 10, -2, 0, 15, 11, -17, -8, 8, 16, 105];
+var _ = require("lodash");
+// Добавить в стек (push)
+// Взять из стека (pop)
+// Вернуть элемент с вершины стека без удаления (peekBack)
+// Проверить на пустоту (isEmpty)
+// Вернуть размер (size)
 
-// Функция bubbleSort()
-const bubbleSort = (coll) => {
-  let stepsCount = coll.length - 1;
-  let swapped;
+const checkIsBalanced = (expression) => {
+  const stack = [];
 
-  do {
-    swapped = false;
-
-    for (let i = 0; i < stepsCount; i += 1) {
-      if (coll[i] > coll[i + 1]) {
-        const temp = coll[i];
-        coll[i] = coll[i + 1];
-        coll[i + 1] = temp;
-
-        swapped = true;
+  for (const symbol of expression) {
+    if (symbol === "(") {
+      stack.push(symbol);
+    } else if (symbol === ")") {
+      if (!stack.pop()) {
+        return false;
       }
     }
-    stepsCount -= 1;
-  } while (swapped);
+  }
 
-  return coll;
+  return stack.length === 0;
 };
 
-//console.log(bubbleSort(test));
+const test = "((()))";
+console.log(checkIsBalanced(test));
 
-// Сщртировка встроенной функцией JS sort()
-const compareFunction = (a, b) => {
-  return a - b;
+// Функция isBracketStructureBalanced(),  которая принимает на вход строку, состоящую только из открывающих и закрывающих скобок разных типов, и проверяет, является ли эта строка сбалансированной.
+const testing1 = "(>"; // false
+const testing2 = "({})"; // true
+const testing3 = "[()]"; // true
+const testing4 = "({}[])"; // true
+const testing5 = "{<>}}"; // false
+const testing6 = "([)]"; // false
+
+const openingSymbols = ["(", "[", "{", "<"];
+const closingSymbols = [")", "]", "}", ">"];
+
+const isOpeningSymbol = (symbol) => openingSymbols.includes(symbol);
+const getClosingSymbolFor = (symbol) => {
+  for (let i = 0; i < closingSymbols.length; i++) {
+    if (openingSymbols[i] === symbol) {
+      return closingSymbols[i];
+    }
+  }
+  return null;
 };
 
-//console.log(test.sort(compareFunction));
-
-// Функция bubbleSort(), мой вариант
-
-const bubbleSortMyOwn = (coll) => {
-  let collLength = coll.length - 1;
-  let switcher;
-
-  do {
-    switcher = false;
-
-    for (let i = 0; i < collLength; i++) {
-      if (coll[i] > coll[i + 1]) {
-        let temp = coll[i];
-        coll[i] = coll[i + 1];
-        coll[i + 1] = temp;
-
-        switcher = true;
+const isBracketStructureBalanced = (str) => {
+  const stack = [];
+  for (const symbol of str) {
+    if (isOpeningSymbol(symbol)) {
+      const closingSymbols = getClosingSymbolFor(symbol);
+      stack.push(closingSymbols);
+    } else {
+      const lastSavedSymbol = stack.pop();
+      if (symbol !== lastSavedSymbol) {
+        return false;
       }
     }
-    collLength -= 1;
-  } while (switcher);
-
-  return coll;
+  }
+  return stack.length === 0;
 };
 
-console.log(bubbleSortMyOwn(test));
+
+console.log(isBracketStructureBalanced(testing5));
