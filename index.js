@@ -1,22 +1,22 @@
-// Испытания. JS.Массивы: Длина последнего слова
-const str1 = "man in BlacK";
-const str2 = "hello, world!  ";
-const str3 = "  hi    ";
+// Испытания. Javascript: Треугольник Паскаля
+const pascal = (num) => {
+  let result = [];
 
-const arr = [str2];
+  for (let i = 0; i <= num + 1; i++) {
+    result[i] = [];
 
-const getLastWordLength = (str) => {
-  const result = str.trim().split(" ");
-  const lengthOfResult = result.length - 1;
-
-  return result[lengthOfResult].length;
+    for (let j = 0; j <= i; j++) {
+      if (j === 0 || j === i) {
+        result[i][j] = 1;
+      } else {
+        result[i][j] = result[i - 1][j - 1] + result[i - 1][j];
+      }
+    }
+  }
+  return result[num];
 };
 
-const getLastWordLengthByAt = (str) => {
-  const result = str.trim().split(" ");
-  const lastWord = result.at(-1);
+console.log(pascal(4));
 
-  return lastWord.length;
-};
 
-console.log(getLastWordLengthByAt(str2));
+
