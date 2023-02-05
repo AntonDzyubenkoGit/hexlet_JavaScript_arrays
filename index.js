@@ -1,35 +1,22 @@
-// Функция flatten(), которая принимает на вход массив и выпрямляет его: если элементами массива являются массивы, то flatten сводит всё к одному массиву, раскрывая один уровень вложенности
+// Испытания. JS.Массивы: Длина последнего слова
+const str1 = "man in BlacK";
+const str2 = "hello, world!  ";
+const str3 = "  hi    ";
 
-const one = []; // []
-const two = [1, [3, 2], 9]; // [1, 3, 2, 9]
-const three = [1, [[2], [3]], [9]]; //[1, [2], [3], 9]
+const arr = [str2];
 
-const flatten = (coll) => {
-  let result = [];
-  for (const elem of coll) {
-    if (Array.isArray(elem)) {
-      result = [...result, ...elem];
-    } else {
-      result = [...result, elem];
-    }
-  }
+const getLastWordLength = (str) => {
+  const result = str.trim().split(" ");
+  const lengthOfResult = result.length - 1;
 
-  return result;
+  return result[lengthOfResult].length;
 };
 
-const flattenTwo = (coll) => {
-  const result = [];
-  for (const elem of coll) {
-    if (Array.isArray(elem)) {
-      for (const elemArr of elem) {
-        result.push(elemArr);
-      }
-    } else {
-      result.push(elem);
-    }
-  }
+const getLastWordLengthByAt = (str) => {
+  const result = str.trim().split(" ");
+  const lastWord = result.at(-1);
 
-  return result;
+  return lastWord.length;
 };
 
-console.log(flatten(two));
+console.log(getLastWordLengthByAt(str2));
