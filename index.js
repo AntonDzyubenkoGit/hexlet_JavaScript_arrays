@@ -1,47 +1,45 @@
-// Функция getIntersectionOfSortedArrays(), вариант с _.intersection()
-const _ = require("lodash");
-const getIntersectionOfSortedArraysByLodash = (arr1, arr2) => {
-  return _.intersection(arr1, arr2);
+// Функция getTheNearestLocation(), которая находит ближайшее место к указанной точке на карте и возвращает его.
+
+const { min } = require("lodash");
+
+const locations = [
+  ["Park", [10, 5]],
+  ["Sea", [1, 3]],
+  ["Museum", [8, 4]],
+];
+
+const currentPoint = [5, 5];
+
+const getDistance = ([x1, y1], [x2, y2]) => {
+  const xs = x2 - x1;
+  const ys = y2 - y1;
+
+  return Math.sqrt(xs ** 2 + ys ** 2);
 };
 
-// Функция getIntersectionOfSortedArrays(), вариант с includes()
-const getIntersectionOfSortedArraysIncludes = (arr1, arr2) => {
+const minimum = (arr) => arr.reduce((x, y) => Math.min(x, y));
+
+const getTheNearestLocation = (locations, currentPoint) => {
+  if (locations.length === 0) {
+    return null;
+  }
+
+  const valuesOfDistances = [];
+
+  for (const [, dist] of locations) {
+    valuesOfDistances.push(getDistance(dist, currentPoint));
+  }
+
+  const minDistance = minimum(valuesOfDistances);
+
   const result = [];
-  for (let i = 0; i < arr2.length; i += 1) {
-    if (arr1.includes(arr2[i]) && !result.includes(arr2[i])) {
-      result.push(arr2[i]);
+
+  for (const [city, dist] of locations) {
+    if (getDistance(dist, currentPoint) === minDistance) {
+      result.push(city, dist);
     }
   }
   return result;
 };
 
-// Функция getIntersectionOfSortedArrays(), которая принимает на вход два отсортированных массива и находит их пересечение
-const getIntersectionOfSortedArrays = (arr1, arr2) => {
-  const result = [];
-  let i = 0;
-  let j = 0;
-
-  while (i < arr1.length && j < arr2.length) {
-    if (arr1[i] === arr2[j]) {
-      result.push(arr1[i]);
-      i++;
-      j++;
-    } else {
-      arr1[i] > arr2[j] ? j++ : i++;
-    }
-  }
-
-  return [...new Set(result)];
-};
-
-
-
-console.log(
-  getIntersectionOfSortedArrays([10, 11, 24], [10, 13, 14, 18, 24, 30])
-);
-console.log(getIntersectionOfSortedArrays([10, 11, 24], [-2, 3, 4]));
-console.log(getIntersectionOfSortedArrays([], [2]));
-
-console.log(
-  getIntersectionOfSortedArrays([1, 1, 1, 2, 2, 2], [1, 1, 2, 2, 3, 3])
-);
+console.log(getTheNearestLocation(locations, currentPoint));
