@@ -1,32 +1,33 @@
-// Испытания. Javascript: Сравнение версий
-const compareVersion = (a, b) => {
-  const arrA = a.split(".");
-  const arrB = b.split(".");
-  let diff = 0;
-  const lenghtArr = arrA.length;
+// Испытания. Javascript: Список диапазонов
+const summaryRanges = (coll) => {
+  const result = [];
+  let temp = "";
 
-  for (let i = 0; i < lenghtArr; i++) {
-    if (arrA[i] === arrB[i]) {
-      diff = 0;
-    } else if (Number(arrA[i]) > Number(arrB[i])) {
-      diff = 1;
-      break;
+  for (let i = 0; i < coll.length; i++) {
+    if (!temp) {
+      temp += coll[i];
+      if (coll[i] + 1 !== coll[i + 1]) {
+        temp = "";
+      }
     } else {
-      diff = -1;
+      if (coll[i] + 1 !== coll[i + 1]) {
+        temp += "->";
+        temp += coll[i];
+        result.push(temp);
+        temp = "";
+      }
     }
   }
-  return diff;
+
+  return result;
 };
 
-// Испытания. Javascript: Сравнение версий. Версия без цикла, но только для одного числа после точки
-const compareVersion2 = (first, second) => {
-  const [a1, b1] = first.split(".");
-  const [a2, b2] = second.split(".");
+const first = [0, 1, 2, 4, 5, 7];
+const second = [1];
+const third = [1, 2, 3];
+const fourth = [0, 1, 2, 4, 5, 7];
+const fifth = [110, 111, 112, 111, -5, -4, -2, -3, -4, -5];
+const sixth = [8, 3, 1, 12, 2, 5];
+const seventh = [8, 3, 1, 2, 3];
 
-  const major = Math.sign(a1 - a2);
-  const minor = Math.sign(b1 - b2);
-
-  return major === 0 ? minor : major;
-};
-
-console.log(compareVersion("3.2", "2.12"));
+console.log(summaryRanges(fourth));
