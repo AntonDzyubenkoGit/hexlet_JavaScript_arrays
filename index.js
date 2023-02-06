@@ -1,33 +1,37 @@
-// Испытания. Javascript: Список диапазонов
-const summaryRanges = (coll) => {
+// Испытания. Javascript: Возрастающая последовательность
+const isContinuousSequence = (coll) => {
+  if (coll.length <= 1) {
+    return false;
+  }
   const result = [];
-  let temp = "";
 
   for (let i = 0; i < coll.length; i++) {
-    if (!temp) {
-      temp += coll[i];
-      if (coll[i] + 1 !== coll[i + 1]) {
-        temp = "";
-      }
-    } else {
-      if (coll[i] + 1 !== coll[i + 1]) {
-        temp += "->";
-        temp += coll[i];
-        result.push(temp);
-        temp = "";
-      }
+    let current = coll[i];
+    let next = coll[i + 1];
+    let last = coll[coll.length - 1];
+
+    if (current + 1 === next || current === last) {
+      result.push(current);
     }
   }
-
-  return result;
+  return result.length === coll.length;
 };
 
-const first = [0, 1, 2, 4, 5, 7];
-const second = [1];
-const third = [1, 2, 3];
-const fourth = [0, 1, 2, 4, 5, 7];
-const fifth = [110, 111, 112, 111, -5, -4, -2, -3, -4, -5];
-const sixth = [8, 3, 1, 12, 2, 5];
-const seventh = [8, 3, 1, 2, 3];
+// Испытания. Javascript: Возрастающая последовательность. Вариант со сравнением стартового элемента суммированного с индексом, который начинается от 1, со следующим элементом
+const isContinuousSequence2 = (coll) => {
+  const size = coll.length;
+  if (size <= 1) {
+    return false;
+  }
 
-console.log(summaryRanges(fourth));
+  const start = coll[0];
+  for (let index = 1; index < size; index += 1) {
+    if (start + index !== coll[index]) {
+      return false;
+    }
+  }
+  return true;
+};
+
+console.log(isContinuousSequence2([10, 11, 12, 13]));
+console.log(isContinuousSequence2([10, 11, 12, 14, 15]));
