@@ -1,22 +1,13 @@
-// Испытания. Javascript: Треугольник Паскаля
-const pascal = (num) => {
-  let result = [];
+// Испытания. Javascript: Треугольник Паскаля. Решение с определением элемента по формуле
+const pascal = (row) => {
+  const line = [1];
 
-  for (let i = 0; i <= num + 1; i++) {
-    result[i] = [];
-
-    for (let j = 0; j <= i; j++) {
-      if (j === 0 || j === i) {
-        result[i][j] = 1;
-      } else {
-        result[i][j] = result[i - 1][j - 1] + result[i - 1][j];
-      }
-    }
+  for (let i = 0; i < row; i += 1) {
+    const element = line[i] * ((row - i) / (i + 1));
+    line.push(element);
   }
-  return result[num];
+
+  return line;
 };
 
-console.log(pascal(4));
-
-
-
+console.log(pascal(5));
